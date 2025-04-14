@@ -1,0 +1,65 @@
+/* Style for the candidate division */
+.candidate {
+    border: 2px solid #007bff;
+    border-radius: 8px; /* Reduced border radius */
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 15px; /* Reduced margin */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    transition: transform 0.3s;
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center align items vertically */
+    justify-content: space-between; /* Spread items horizontally */
+}
+
+/* Hover effect */
+.candidate:hover {
+    transform: translateY(-3px); /* Reduced translation */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow */
+}
+
+/* Style for candidate name */
+.candidate h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 18px; /* Reduced font size */
+    color: #333;
+    margin-bottom: 3px; /* Reduced space below the name */
+}
+
+/* Style for party name */
+.candidate .party-name {
+    color: #555;
+    margin: 0; /* Remove default margin */
+    margin-bottom: 5px; /* Reduced space below the party name */
+}
+
+/* Style for party symbol */
+.candidate .party-symbol {
+    max-width: 80px; /* Reduced size */
+    max-height: 80px; /* Reduced size */
+    margin-right: 15px; /* Reduced margin */
+}
+
+/* Style for the vote button */
+.vote-button {
+    background-color: #28a745;
+    color: #fff;
+    width: 100%;
+    margin: 0px 10px;
+    border: none;
+    padding: 8px 15px; /* Reduced padding */
+    cursor: pointer;
+    border-radius: 4px; /* Reduced border radius */
+    font-size: 14px; /* Reduced font size */
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.vote-button:hover {
+    background-color: #218838;
+}
+
+.party-symbol {
+    max-width: 100px; /* Adjust maximum width as needed */
+    max-height: 100px; /* Adjust maximum height as needed */
+}
