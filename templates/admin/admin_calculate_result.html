@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<title>Calculate Result</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin/result_styles.css' %}">
+  <style>
+        /* Resetting default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Body styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* Container styles */
+    .container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Heading styles */
+    .heading {
+        font-size: 36px;
+        color: #007bff;
+        transition: color 0.3s ease;
+    }
+
+    /* Button styles */
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    #declareButton {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    #declareButton:hover {
+        background-color: #0056b3;
+    }
+ </style>
+</head>
+<body>
+  {% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <div class="container">
+      <h1 class="heading">Election Result Declaration</h1>
+
+      <form method="post" action="{% url 'count_votes' %}">
+      {% csrf_token %}
+      <button type="submit" id="declareButton">Calculate Result</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<title>Key</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/voter/reg_style.css' %}">
+</head>
+<body>
+  {% block sidebar %}
+    {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <div class="container">
+      {% if message %}
+      <h1 style="color:green">{{ message }}</h1>
+      {% endif %}
+      <header>Voter Registration</header>
+          <form method="POST" action="{% url 'change_key' %}">
+            {% csrf_token %}
+            <div class="input-field button">
+              <input type="submit" value="Change Key" />
+            </div>
+          </form>
+    </div>
+  </main>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

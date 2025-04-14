@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<title>Add Candidate</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/voter/reg_style.css' %}">
+
+</head>
+
+<body>
+  {% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+    {% if error %}<div class="alert alert-danger"><strong>Failed!</strong>{{ error }}</div>{% endif %}
+    {% if success %}<div class="alert alert-success"><strong>Success!</strong>{{ success }}</div>{% endif %}
+    <div class="container">
+      <header>Add Candidate</header>
+      <form id="candidateForm" action="{% url 'add_candidate_db' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field email-field">
+          <div class="input-field">
+            <input type="text" placeholder="Enter your name" class="email" name="name" required/>
+          </div>
+          <span class="error email-error">
+            <i class="bx bx-error-circle error-icon"></i>
+            <p class="error-text">Enter name</p>
+          </span>
+        </div>
+        <div class="field email-field">
+          <div class="input-field">
+            <input type="text" placeholder="Enter your party" class="party" name="party" required/>
+          </div>
+          <span class="error email-error">
+            <i class="bx bx-error-circle error-icon"></i>
+            <p class="error-text">Enter Party</p>
+          </span>
+        </div>
+        <div class="field email-field">
+          <div class="input-field">
+            <input type="file" id="imageInput" name="image" accept="image/*" placeholder="Select an Image" required>
+          </div>
+          <span class="error email-error">
+            <i class="bx bx-error-circle error-icon"></i>
+            <p class="error-text">Select an image</p>
+          </span>
+        </div>
+        <div class="message" id="formMessage"></div> <!-- Message container -->
+        <div class="input-field button">
+          <input type="submit" value="Submit Now" id="submitButton" />
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('candidateForm').addEventListener('submit', function(event) {
+      var name = document.querySelector('.email[name="name"]').value;
+      var party = document.querySelector('.party[name="party"]').value;
+      var position = document.querySelector('.position[name="position"]').value;
+      var image = document.getElementById('imageInput').files[0];
+
+      var isValid = true; // Flag to track validation status
+
+      // Custom validation to prevent numbers in name and party fields
+      var nameRegex = /^[a-zA-Z ]*$/; // Only allow letters and spaces
+      var partyRegex = /^[a-zA-Z ]*$/; // Only allow letters and spaces
+
+      if (!name.trim()) {
+        showError('email-error', 'Enter name');
+        isValid = false;
+      } else if (!nameRegex.test(name)) {
+        showError('email-error', 'Name cannot contain numbers');
+        isValid = false;
+      }
+
+      if (!party.trim()) {
+        showError('email-error', 'Enter Party');
+        isValid = false;
+      } else if (!partyRegex.test(party)) {
+        showError('email-error', 'Party name cannot contain numbers');
+        isValid = false;
+      }
+
+      if (!position.trim()) {
+        showError('email-error', 'Enter position');
+        isValid = false;
+      }
+
+      if (!image) {
+        showError('email-error', 'Select an image');
+        isValid = false;
+      }
+
+      // Clear previous message
+      document.getElementById('formMessage').innerHTML = '';
+
+      // Display success or failure message
+      if (isValid) {
+        var messageElement = document.getElementById('formMessage');
+        messageElement.textContent = 'Candidate added successfully!';
+        messageElement.classList.add('success-message');
+      } else {
+        var messageElement = document.getElementById('formMessage');
+        messageElement.textContent = 'Failed to add candidate. Please check the fields.';
+        messageElement.classList.add('error-message');
+        event.preventDefault(); // Prevent form submission if validation fails
+      }
+    });
+
+    function showError(errorClass, errorMessage) {
+      var errorElement = document.querySelector('.' + errorClass);
+      errorElement.style.display = 'block';
+      errorElement.querySelector('.error-text').textContent = errorMessage;
+    }
+  </script>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

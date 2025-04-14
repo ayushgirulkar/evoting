@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<title>Block Records</title>
+
+<html>
+{% load static %}
+<head>
+    <title>Block Records</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; /* Light gray background */
+        }
+        h1 {
+            color: #007bff; /* Blue color */
+            background-color: #cce5ff; /* Light blue background */
+            padding: 20px 0; /* Add padding for better spacing */
+            margin: 0;
+            text-align: center;
+        }
+        main {
+            overflow-x: auto; /* Add horizontal scrollbar if needed */
+            padding: 20px; /* Add padding to main content */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #007bff; /* Blue border */
+            font-size: 14px; /* Reduced font size */
+            background-color: white; /* White background */
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #007bff; /* Blue border */
+            word-wrap: break-word; /* Enable word wrapping */
+            max-width: 300px; /* Limit maximum width of cell */
+            overflow: hidden; /* Hide overflow */
+            white-space: nowrap; /* Prevent text from wrapping to next line */
+            text-overflow: ellipsis; /* Add ellipsis for truncated text */
+        }
+        th {
+            background-color: #007bff; /* Blue header background */
+            color: white; /* White text color */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Light gray background */
+        }
+        tr:hover {
+            background-color: #cce5ff; /* Light blue background on hover */
+            transition: background-color 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            /* Adjust table for smaller screens */
+            table {
+                font-size: 12px; /* Decrease font size for smaller screens */
+            }
+            th, td {
+                padding: 8px;
+                max-width: 200px; /* Limit maximum width of cell for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+{% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+<main>
+    <h1>Block Records</h1>
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Encrypted Voter ID</th>
+                    <th>Encrypted Candidate ID</th>
+                    <th>Timestamp</th>
+                    <th>Previous Hash</th>
+                    <th>Block Hash</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for block in blocks %}
+                <tr>
+                    <td>{{ block.id }}</td>
+                    <td>{{ block.encrypted_voter_id }}</td>
+                    <td>{{ block.encrypted_candidate_id }}</td>
+                    <td>{{ block.timestamp }}</td>
+                    <td>{{ block.previous_hash }}</td>
+                    <td>{{ block.block_hash }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

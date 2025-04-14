@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<title>Voter Menu</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/voter/style.css' %}">
+  <style>
+    /* Additional styles directly in HTML */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, #4e73df, #224abe);
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-name {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .profile-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .user-info a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      padding-top: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  {% block sidebar %}
+  {% include 'voter/sidebar.html' %}
+  {% endblock %}
+  <main>
+  <div class="header">
+    <div class="menu-toggle" id="menu-toggle">
+      <i class='bx bx-menu-alt-left'></i>
+    </div>
+    <div class="header-title">
+      Voter Menu
+    </div>
+    <div class="user-info">
+      <div class="user-name">{{ voter }}</div>
+      <img src="" alt="{{ user.username }}" class="profile-photo">
+      <a href="{% url 'logout' %}" onclick="replicateTab(); return false;">Logout</a>
+    </div>
+  </div>
+
+
+    <h1>Voting Guidelines</h1>
+
+    <ol>
+      <li><strong>Register to Vote:</strong> Ensure that you are registered to vote well before the election day. Check the registration deadlines in your area.</li>
+        <li><strong>Educate Yourself:</strong> Familiarize yourself with the candidates, their platforms, and the issues at stake. Understand their positions on key issues that matter to you.</li>
+        <li><strong>Know the Voting Process:</strong> Understand the voting process in your area, including polling locations, voting hours, and any identification requirements. Familiarize yourself with the types of ballots used in your jurisdiction.</li>
+        <li><strong>Check Your Voter Information:</strong> Confirm your voter registration status and verify your polling location before Election Day. Make sure all your information is accurate and up-to-date.</li>
+        <li><strong>Early Voting or Absentee Voting:</strong> If available, consider early voting or absentee voting if you are unable to vote on the designated election day. Follow the guidelines provided by your election commission.</li>
+        <li><strong>Bring Necessary Identification:</strong> Bring any required identification documents to the polling place. This may include a driver's license, passport, or other government-issued ID.</li>
+        <li><strong>Follow Election Regulations:</strong> Observe all election rules and regulations. This includes respecting the rules within the polling place, maintaining order, and refraining from electioneering within a certain distance from the polling station.</li>
+        <li><strong>Review Your Ballot:</strong> Before casting your vote, carefully review your ballot to ensure you have marked your choices correctly. If using electronic voting machines, double-check your selections.</li>
+        <li><strong>Ask for Assistance:</strong> If you have any questions or need assistance, don't hesitate to ask poll workers for help. They are there to assist you.</li>
+        <li><strong>Be Respectful:</strong> Treat fellow voters, poll workers, and election officials with respect. Follow the guidelines and maintain a calm and orderly environment at the polling place.</li>
+        <li><strong>Report Issues:</strong> If you encounter any issues or irregularities, report them to the appropriate authorities or election officials. Your feedback helps maintain the integrity of the election process.</li>
+        <li><strong>Encourage Others to Vote:</strong> Encourage friends, family, and colleagues to participate in the democratic process. Voting is a collective effort that strengthens the foundation of democracy.</li>
+    </ol>
+
+    <h1>Voting Rules</h1>
+
+    <ol>
+        <li><strong>Voter Eligibility:</strong> Only eligible voters are allowed to cast a ballot. Eligibility criteria often include age, citizenship, and residency requirements. Check with your local election authorities to ensure you meet the eligibility criteria.</li>
+        <li><strong>Voter Registration:</strong> Voters typically need to register before participating in an election. Ensure you are registered to vote within the specified deadlines.</li>
+        <li><strong>Identification:</strong> Many jurisdictions require voters to present identification at the polling place. This may include a driver's license, passport, or other government-issued ID. Know the specific ID requirements in your area.</li>
+        <li><strong>Polling Place Assignment:</strong> Voters are assigned specific polling places based on their residential address. Make sure you go to the correct polling location to cast your vote.</li>
+        <li><strong>Election Day and Voting Hours:</strong> Be aware of the designated Election Day and the voting hours. Polling places typically open and close at specific times, and it's important to cast your vote within the specified window.</li>
+        <li><strong>Follow Voting Procedures:</strong> Follow the prescribed voting procedures at your polling place. This includes checking in with poll workers, obtaining a ballot, and marking your choices as per the instructions provided.</li>
+        <li><strong>No Electioneering:</strong> Electioneering, or campaigning for a candidate or party, is generally prohibited within a certain distance from the polling place. Respect this rule to maintain a neutral environment at the voting site.</li>
+        <li><strong>Secrecy of the Ballot:</strong> Maintain the secrecy of your ballot. Cast your vote in private, and avoid showing your marked ballot to others.</li>
+        <li><strong>No Multiple Voting:</strong> It is illegal to vote more than once in the same election. Follow the rules and cast a single, legitimate vote.</li>
+        <li><strong>Respect Others:</strong> Respect the rights of other voters and the authority of poll workers. Behave courteously and maintain order within the polling place.</li>
+        <li><strong>Prohibited Items:</strong> Certain items, such as campaign materials, electronic devices, or weapons, may be prohibited inside the polling place. Familiarize yourself with the rules regarding prohibited items.</li>
+        <li><strong>Accessible Voting:</strong> Ensure that the polling place is accessible to all voters, including those with disabilities. If you require assistance, ask poll workers for help.</li>
+        <li><strong>Early and Absentee Voting Rules:</strong> If early or absentee voting is allowed in your jurisdiction, follow the specific rules and deadlines for submitting your ballot before Election Day.</li>
+        <li><strong>Challenge and Recount Procedures:</strong> Familiarize yourself with the procedures for challenging a voter's eligibility or requesting a recount if needed. These processes are typically outlined in election laws.</li>
+    </ol>
+  </main>
+
+  <script>
+    var url = document.URL;
+    function replicateTab() {
+      if (window.confirm("ARE YOU SURE TO LOG OUT ?")) {
+        window.open("Logout");
+        window.close();
+      }
+    }
+  </script>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

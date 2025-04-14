@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<title>Voter Voting</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/voter/voting_machine.css' %}">
+  <style>
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.img_container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    height: 300px; /* Adjust the height as needed */
+}
+
+.fixed-size-image {
+    max-width: 300px; /* Ensure the image doesn't exceed the container */
+    max-height: 300px; /* Ensure the image doesn't exceed the container */
+    width: auto;
+    height: auto;
+}
+  </style>
+</head>
+<body>
+  {% block sidebar %}
+    {% include 'voter/sidebar.html' %}
+  {% endblock %}
+  <main>
+     <div class="img_container">
+       <img class="fixed-size-image" id="live-feed-img" src="{% url 'start_stream' %}" alt="Live Feed" onerror="handleImageError()"></div>
+    <h1 style="color:green">{{ message }}</h1>
+  {% if can_vote == False %}
+      {% if current_phase == 'voting' %}
+        {% if not is_registered %}
+          <h1 style="color:red">PLEASE REGISTER FIRST...</h1>
+        {% else %}
+          <h1>{{ election_title }}</h1>
+          {% if candidates %}
+    {% for candidate in candidates %}
+        <div class="candidate">
+            {% if candidate.image %}
+            <img class="party-symbol" src="{{ candidate.image.url }}" alt="{{ candidate.party }}">
+            {% else %}
+            <div class="no-image">No Image Available</div>
+            {% endif %}
+            <div>
+            <h3>{{ candidate.name }}</h3>
+            <p class="party-name">{{ candidate.party }} {{ candidate.candidate_id }}</p>
+        </div>
+            <form action="{% url 'vote' %}" method="post">
+                <input type="hidden" name="voter_id" value="{{ voter_id }}">
+            {% csrf_token %}
+            <input type="hidden" name="candidate_id" value="{{ candidate.candidate_id }}">
+            <button class="vote-button" name="vote_for_{{ candidate.candidate_id }}" value="Vote">Vote</button>
+            </form>
+        </div>
+    {% endfor %}
+
+          {% else %}
+            <h2>NO CANDIDATE ADDED YET..!!</h2>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      {% if current_phase == 'registration' %}
+        <h1 style="color:blue">REGISTRATION PHASE GOING ON VOTING NOT STARTED YET...</h1>
+      {% endif %}
+      {% if current_phase == 'closed' %}
+        <h1 style="color:red">VOTINGS ENDED...</h1>
+      {% endif %}
+    </form>
+  {% else %}
+    <h1 style="color:red">YOU HAVE ALREADY VOTED...</h1>
+  {% endif %}
+  </main>
+
+  <script>
+    function handleImageError() {
+      // Disable the voting form if the live feed image fails to load
+      document.getElementById('voting-form').querySelectorAll('input, button').forEach(function(element) {
+        element.disabled = true;
+      });
+    }
+  </script>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<title>Menu</title>
+{% load static %}
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Admin Menu</title>
+ <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+ <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+ <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.home-section{
+  position: relative;
+  background: #f5f5f5;
+  min-height: 100vh;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+
+.home-section nav{
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  padding: 0 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
+}
+
+.home-section nav .sidebar-button{
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+nav .sidebar-button i{
+  font-size: 35px;
+  margin-right: 10px;
+}
+
+.home-section nav .search-box{
+  position: relative;
+  height: 50px;
+  max-width: 550px;
+  width: 100%;
+  margin: 0 20px;
+}
+
+nav .search-box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  background: #F5F6FA;
+  border: 2px solid #EFEEF1;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 0 15px;
+}
+
+nav .search-box .bx-search{
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background: #2697FF;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+  transition: all 0.4 ease;
+}
+
+.home-section nav .profile-details{
+  display: flex;
+  align-items: center;
+  background: #F5F6FA;
+  border: 2px solid #EFEEF1;
+  border-radius: 6px;
+  height: 50px;
+  min-width: 190px;
+  padding: 0 15px 0 2px;
+}
+
+nav .profile-details img{
+  height: 40px;
+  width: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+nav .profile-details .admin_name{
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 10px;
+  white-space: nowrap;
+}
+
+nav .profile-details i{
+  font-size: 25px;
+  color: #333;
+}
+
+.home-content{
+  position: relative;
+  padding-top: 104px;
+}
+
+.home-content .overview-boxes{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  margin-bottom: 26px;
+}
+
+.overview-boxes .box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% / 4 - 15px);
+  background: #fff;
+  padding: 15px 14px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.overview-boxes .box-topic{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.home-content .box .number{
+  display: inline-block;
+  font-size: 35px;
+  margin-top: -6px;
+  font-weight: 500;
+}
+
+.home-content .box .indicator{
+  display: flex;
+  align-items: center;
+}
+
+.home-content .box .indicator i{
+  height: 20px;
+  width: 20px;
+  background: #8FDACB;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.box .indicator i.down{
+  background: #e87d88;
+}
+
+.home-content .box .indicator .text{
+  font-size: 12px;
+}
+
+.home-content .box .cart{
+  display: inline-block;
+  font-size: 32px;
+  height: 50px;
+  width: 50px;
+  background: #cce5ff;
+  line-height: 50px;
+  text-align: center;
+  color: #66b0ff;
+  border-radius: 12px;
+  margin: -15px 0 0 6px;
+}
+
+.home-content .box .cart.two{
+   color: #2BD47D;
+   background: #C0F2D8;
+ }
+
+.home-content .box .cart.three{
+   color: #ffc233;
+   background: #ffe8b3;
+ }
+
+.home-content .box .cart.four{
+   color: #e05260;
+   background: #f7d4d7;
+ }
+
+.home-content .total-order{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Responsive Media Query */
+@media (max-width: 1240px) {
+  .home-section{
+    width: calc(100% - 60px);
+    left: 60px;
+  }
+  .home-section nav{
+    width: calc(100% - 60px);
+    left: 60px;
+  }
+}
+@media (max-width: 400px) {
+  .home-section{
+    width: 100%;
+    left: 0;
+  }
+  .home-section nav{
+    width: 100%;
+    left: 0;
+  }
+}
+    .number {
+      font-size: 35px;
+      margin-top: -6px;
+      font-weight: 500;
+    }
+     .new-election-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 325px;
+    }
+
+    .new-election-button:hover {
+        background-color: #0056b3;
+    }
+ </style>
+</head>
+<body>
+ {% block sidebar %}
+ {% include 'admin/sidebar.html' %}
+ {% endblock %}
+ <main>
+    <section class="home-section">
+      <div class="home-content">
+        <div class="overview-boxes">
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Voters</div>
+              <div class="number" id="total_voters">0</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bxs-user-circle cart"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Voters Registered</div>
+              <div class="number" id="registered_voters_count">0</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bx-user-plus cart two"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+                <div class="box-topic">Voters Voted</div>
+                <div class="number" id="total_blocks">0</div>
+                <div class="indicator">
+                    <i class="bx bx-up-arrow-alt"></i>
+                    <span class="text">Up from yesterday</span>
+                </div>
+            </div>
+            <i class="bx bx-check-square cart three"></i>
+        </div>
+
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Candidates</div>
+              <div class="number" id="total_candidates">0</div>
+              <div class="indicator">
+                <i class="bx bx-down-arrow-alt"></i>
+                <span class="text">Down From Today</span>
+              </div>
+            </div>
+            <i class="bx bx-user-circle cart four"></i>
+          </div>
+        </div>
+          {% if has_declared %}
+          <!-- Show the button only if the result is declared -->
+          <form action="{% url 'new_election' %}">
+              <button class="new-election-button">New Election</button>
+          </form>
+        {% endif %}
+      </div>
+    </section>
+ </main>
+<script>
+function animateCounter(elementId, finalCount) {
+    var element = document.getElementById(elementId);
+    var currentCount = 0;
+    var increment = Math.ceil(finalCount / 100); // Adjust the speed of the animation
+
+    var intervalId = setInterval(function() {
+        if (currentCount < finalCount) {
+            currentCount += increment;
+            element.textContent = currentCount;
+        } else {
+            clearInterval(intervalId);
+            element.textContent = finalCount; // Ensure the final count is displayed
+        }
+    }, 40); // Adjust the interval for smoother or faster animation
+}
+
+// Example usage
+document.addEventListener("DOMContentLoaded", function() {
+    animateCounter("total_voters", {{ total_voters }});
+    animateCounter("registered_voters_count", {{ registered_voters_count }});
+    animateCounter("total_candidates", {{ total_candidates }});
+    animateCounter("total_blocks", {{ total_blocks }}); // Ensure this line is correct
+});
+
+
+   var url = document.URL;
+   function replicateTab() {
+   if (window.confirm("ARE YOU SURE TO LOG OUT ?")) {
+    window.open("{% url 'logout' %}");
+    window.close();
+   }
+   }
+</script>
+
+ <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

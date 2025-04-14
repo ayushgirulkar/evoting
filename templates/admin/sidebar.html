@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<title>Sidebar</title>
+{% load static %}
+<html>
+<head>
+    <title>Your Site</title>
+    <link rel="stylesheet" href="{% static 'css/voter/style.css' %}">
+
+    <style>
+      body {font-family: Arial, Helvetica, sans-serif;}
+      
+      /* Full-width input fields */
+      input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      
+      /* Set a style for all buttons */
+      button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+      
+      button:hover {
+        opacity: 0.8;
+      }
+      
+      /* Extra styles for the cancel button */
+      .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+      }
+      
+      /* Center the image and position the close button */
+      .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+        position: relative;
+      }
+      
+      img.avatar {
+        width: 40%;
+        border-radius: 50%;
+      }
+      
+      .container {
+        padding: 16px;
+      }
+      
+      span.psw {
+        float: right;
+        padding-top: 16px;
+      }
+      
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+      }
+      
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+      
+      /* The Close Button (x) */
+      .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: red;
+        cursor: pointer;
+      }
+      
+      /* Add Zoom Animation */
+      .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+      }
+      
+      @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)} 
+        to {-webkit-transform: scale(1)}
+      }
+        
+      @keyframes animatezoom {
+        from {transform: scale(0)} 
+        to {transform: scale(1)}
+      }
+      
+      /* Change styles for span and cancel button on extra small screens */
+      @media screen and (max-width: 300px) {
+        span.psw {
+           display: block;
+           float: none;
+        }
+        .cancelbtn {
+           width: 100%;
+        }
+      }
+      </style>
+
+</head>
+<body>
+    {% block sidebar %}
+            <nav>
+            <link rel="stylesheet" href="{% static 'css/style.css' %}">
+            <div class="sidebar-top">
+              <span class="shrink-btn">
+                <i class='bx bx-chevron-left'></i>
+              </span>
+              <img src="/static/img/logo.png" class="logo" alt="">
+              <h3 class="hide">ADMIN'S</h3>
+            </div>
+        
+            <div class="search">
+              <i class='bx bx-search'></i>
+              <input type="text" class="hide" placeholder="Quick Search ...">
+            </div>
+        
+            <div class="sidebar-links">
+              <ul>
+                <div class="active-tab"></div>
+                <li class="tooltip-element" data-tooltip="0">
+                  <a href="{% url 'admin_menu' %}" class="active" data-active="0">
+                    <div class="icon">
+                      <i class='bx bx-tachometer'></i>
+                      <i class='bx bxs-tachometer'></i>
+                    </div>
+                    <span class="link hide">Dashboard</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="1">
+                  <a href="{% url 'add_candidate' %}" data-active="1">
+                    <div class="icon">
+                      <i class='bx bx-message-rounded-add'></i>
+                      <i class='bx bx-message-rounded-add'></i>
+                    </div>
+                    <span class="link hide">Add Candidate</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="2">
+                  <a href="{% url 'admin_detail' %}" data-active="2">
+                    <div class="icon">
+                      <i class='bx bx-message-square-detail'></i>
+                      <i class='bx bxs-message-square-detail'></i>
+                    </div>
+                    <span class="link hide">Candidate detail</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'admin_change' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-horizontal-center'></i>
+                      <i class='bx bxs-horizontal-center'></i>
+                    </div>
+                    <span class="link hide">Change Phase</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'admin_title_render' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-bar-chart-square'></i>
+                      <i class='bx bxs-bar-chart-square'></i>
+                    </div>
+                    <span class="link hide">Election Title</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'admin_result_render' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-bar-chart-square'></i>
+                      <i class='bx bxs-bar-chart-square'></i>
+                    </div>
+                    <span class="link hide">Result</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'block_records' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-bar-chart-square'></i>
+                      <i class='bx bxs-bar-chart-square'></i>
+                    </div>
+                    <span class="link hide">Block Details</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'change_key_render' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-bar-chart-square'></i>
+                      <i class='bx bxs-bar-chart-square'></i>
+                    </div>
+                    <span class="link hide">Change Key</span>
+                  </a>
+                </li>
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="{% url 'count_votes' %}" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-bar-chart-square'></i>
+                      <i class='bx bxs-bar-chart-square'></i>
+                    </div>
+                    <span class="link hide">Decrypted</span>
+                  </a>
+                </li>
+
+                <li class="tooltip-element" data-tooltip="3">
+                  <a href="#" onclick="replicateTab()" data-active="3">
+                    <div class="icon">
+                      <i class='bx bx-log-out-circle'></i>
+                      <i class='bx bxs-log-out-circle'></i>
+                    </div>
+                    <span class="link hide">Logout</span>
+                  </a>
+                </li>
+              </ul>
+          </div></nav>
+          {% endblock %}
+
+<script>
+              var url = document.URL;
+            function replicateTab() {
+              if (window.confirm("ARE YOU SURE TO LOG OUT ?")) {
+                window.location.href = "{% url 'logout' %}";
+             }
+            }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<title>Result</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin/result_styles.css' %}">
+  <style>
+        /* Resetting default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Body styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* Container styles */
+    .container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Heading styles */
+    .heading {
+        font-size: 36px;
+        color: #007bff;
+        transition: color 0.3s ease;
+    }
+
+    /* Button styles */
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    #declareButton,#calculateButton {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    #declareButton:hover,#calculateButton:hover {
+        background-color: #0056b3;
+    }
+
+    #showResultButton {
+        background-color: #38a47d;
+        color: #fff;
+    }
+
+    #showResultButton:hover {
+        background-color: #2e7d5a;
+    }
+
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        margin: 10% auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .close {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Table styles */
+    #resultTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    #resultTable th, #resultTable td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #resultTable th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    #resultTable tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Winner row styles */
+    .winner-row {
+        background-color: #7fff7f; /* Light green */
+        font-weight: bold;
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+  {% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <div class="container">
+      <h1 class="heading">Election Result Declaration</h1>
+
+<!--      CALCULATE RESULT -->
+      {% if vote_phase == 'closed' %}
+        {% if not has_calculated %}
+        <form method="post" action="{% url 'count_votes' %}">
+        {% csrf_token %}
+        <button type="submit" id="calculateButton">Calculate Result</button>
+        </form>
+        {% endif %}
+      {% else %}
+      <h1 style="color:red">ELECTIONS NOT ENDED YET...</h1>
+      {% endif %}
+
+      {% if has_calculated %}
+        {% if not has_declared %}
+          <form method="post" action="{% url 'declare_result' %}">
+          {% csrf_token %}
+          <button type="submit" id="declareButton">Declare Result</button>
+          </form>
+        {% else %}
+          <h1 style="color:green">RESULT DECLARED....</h1>
+        {% endif %}
+      <button id="showResultButton">Show Result</button>
+      {% endif %}
+    </div>
+  </main>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>Candidate Name</th>
+            <th>Candidate Party</th>
+            <th>Votes Received</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for candidate in candidates %}
+              {% if candidate.name == winner %}
+                  <tr>
+                      <th style="color:green">{{ candidate.name }}(WINNER)</th>
+                      <th style="color:green">{{ candidate.party }}</th>
+                      <th style="color:green">{{ candidate.votes }}</th>
+                  </tr>
+              {% else %}
+                  <tr>
+                      <td>{{ candidate.name }}</td>
+                      <td>{{ candidate.party }}</td>
+                      <td>{{ candidate.votes }}</td>
+                  </tr>
+              {% endif %}
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+  <script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("showResultButton");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<title>Phases</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+
+  <style>
+    /* CSS for the combobox and button */
+    #phase {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+        transition: border-color 0.3s ease; /* Add transition effect for border color change */
+    }
+
+    /* Styling for the button */
+    #registration {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Add transition effect for background color change */
+    }
+
+    #registration:hover {
+        background-color: #0056b3;
+    }
+  </style>
+
+</head>
+
+<body>
+  {% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <p style="color:red">{{ error }}</p>
+    <form action="{% url 'change_vote_phase' %}" method="post">
+    {% csrf_token %}
+    {% if message %}
+    <p style="color:green">{{ message }}</p>  {% endif %}
+    <div id="changePhaseForm">
+        <h1>Voting Phase</h1>
+        <label for="registration">Registration:</label><br>
+        <h1 id="currentPhase">Current Phase: {{ current_phase }}</h1>
+        <div class="phase-change">
+          <select name="phase" id="phase">
+            <option value="registration" {% if current_phase == 'registration' %}selected{% endif %} style="color: #007bff;">Registration</option>
+            <option value="voting" {% if current_phase == 'voting' %}selected{% endif %} style="color: #28a745;">Voting</option>
+            <option value="closed" {% if current_phase == 'closed' %}selected{% endif %} style="color: #dc3545;">Closed</option>
+          </select>
+          <br>
+          <input type="submit" id="registration" value="Change Phase">
+        </div>
+    </div>
+  </form>
+    </main>
+</body>
+
+
+  <script>
+    var url = document.URL;
+    function replicateTab() {
+      if (window.confirm("ARE YOU SURE TO LOG OUT ?")) {
+        window.open("logout");
+        window.close();
+      }
+    }
+  </script>
+
+  <script src="{% static 'js/app.js' %}"></script>
+
+</html>

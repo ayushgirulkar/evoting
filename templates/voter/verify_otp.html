@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<title>Verify OTP</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/voter/reg_style.css' %}">
+</head>
+<body>
+  {% block sidebar %}
+    {% include 'voter/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <div class="container">
+        <h1>Enter OTP sent to your email</h1>
+        {% if messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="otp" placeholder="Enter OTP" required>
+            <button type="submit">Verify OTP</button>
+        </form>
+    </div>
+  </main>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

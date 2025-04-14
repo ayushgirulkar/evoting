@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<title>Election Title</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+  <title>Input Election Title</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #007bff; /* Blue color */
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 12px 20px;
+            background-color: #007bff; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Darker shade of blue */
+        }
+
+        .message {
+            color: #007bff; /* Blue color */
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+  {% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+  {% endblock %}
+  <main>
+        <div class="container">
+        <h1>Input Election Title</h1>
+        {% if message %}
+            <p class="message"><i class="fas fa-check-circle"></i> {{ message }}</p>
+        {% endif %}
+        <form id="electionForm" method="post" action="{% url 'save_election_title' %}" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="election_title">Enter Election Title:</label>
+            <input type="text" id="election_title" name="election_title">
+            <button type="submit"><i class="fas fa-save"></i> Save</button>
+        </form>
+    </div>
+  </main>
+
+    <script>
+    function validateForm() {
+        var title = document.getElementById("election_title").value;
+
+        // Check if the title is empty
+        if (title.trim() == "") {
+            alert("Please enter the election title.");
+            return false;
+        }
+
+        // Check if the title contains numbers
+        if (/\d/.test(title)) {
+            alert("Election title must not contain numbers.");
+            return false;
+        }
+
+        // If all validations pass, return true to submit the form
+        return true;
+    }
+  </script>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

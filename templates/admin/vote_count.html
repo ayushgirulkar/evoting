@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<title>Vote Count</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Vote Counts</title>
+</head>
+<body>
+    <h1>Candidate Vote Counts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Candidate ID</th>
+                <th>Name</th>
+                <th>Party</th>
+                <th>Votes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidate in candidates %}
+            <tr>
+                <td>{{ candidate.id }}</td>
+                <td>{{ candidate.name }}</td>
+                <td>{{ candidate.party }}</td>
+                <td>{{ candidate.votes }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+s

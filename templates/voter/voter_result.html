@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<title>Voter Result</title>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting Result</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/voter/voterstyle.css' %}">
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #e0e0e0; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .not-declared {
+        font-size: 36px;
+        color: #ff0000;
+        margin-bottom: 50px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .not-declared::before {
+        content: "⚠️ ";
+        font-size: 48px;
+    }
+    .winner-form {
+        background: linear-gradient(145deg, #6a11cb 0%, #2575fc 100%);
+        color: #ffffff; /* White text color */
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 500px;
+        position: relative; /
+        overflow: hidden;
+    }
+    .winner-form::before, .winner-form::after {
+        content: '';
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 0;
+    }
+    .winner-form::before {
+        top: -50px; left: -50px;
+        width: 200px; height: 200px;
+        border-radius: 50%;
+    }
+    .winner-form::after {
+        bottom: -50px; right: -50px;
+        width: 300px; height: 300px;
+        border-radius: 50%;
+    }
+    .winner-form h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    .winner-details {
+        margin-top: 30px;
+        position: relative;
+        z-index: 1;
+    }
+    .winner-details p {
+        font-size: 18px;
+        margin: 15px 0;
+    }
+    .winner-name {
+        font-size: 22px;
+        font-weight: bold;
+        color: #aee571; /* Light green for the name for emphasis */
+    }
+    .form-button {
+        background-color: #f44336; /* Red color for contrast with the form */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 25px;
+        transition: background-color 0.3s ease;
+    }
+    .form-button:hover {
+        background-color: #c3382d;
+    }
+</style>
+</head>
+<body>
+  {% block sidebar %}
+    {% include 'voter/sidebar.html' %}
+  {% endblock %}
+  <main>
+    <div class="container">
+      <form action="{% url 'signup' %}">
+        <center>
+            {% if has_declared %}
+            <div class="winner-form">
+                <h2>Election Winner</h2>
+                <div class="winner-details">
+                    <p class="winner-name">{{ winner.name }}</p>
+                    <p>Party: {{ winner.party }}</p>
+                    <p>Votes Received: {{ winner.votes }}</p>
+                </div>
+            </div>
+            {% else %}
+                <p class="not-declared">⚠️ Result not declared yet.</p>
+            {% endif %}
+        </center>
+      </form>
+    </div>
+  </main>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
