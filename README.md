@@ -1,5 +1,5 @@
 # evoting  
-(this my diploma Team project)
+(This is  my diploma Team project)
 
 --software
 mysql db
