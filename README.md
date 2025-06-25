@@ -1,6 +1,6 @@
 # evoting  
 (This is  my diploma Team project)
-Demo Video of project : https://drive.google.com/file/d/1ZPav7wi9ttX0wJyt3bN7- MopjZ2HLjGe/view?usp=drivesdk
+Demo Video of project : https://drive.google.com/file/d/1FhB6BK09RuQf2y7lWMqHlSTutuqYAdok/view?usp=sharing
 --software
 mysql db
 python
